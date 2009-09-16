@@ -1,0 +1,56 @@
+<h1>Listing books</h1>
+
+<h2>Search</h2>
+
+<% form_tag(books_path, :method => "get") do %>
+  <%= label_tag(:q, "Search for:") %>
+  <%= text_field_tag(:q) %>
+  <%= submit_tag("Search") %>
+<% end %>
+
+<span>Você buscou por: <strong> <%=params[:q] %> </strong> </span>
+
+<% if @results.size > 0 %>
+<h2>Resultados encontrados:</h2>
+<table>
+  <tr>
+    <th>Página</th>
+    <th>Publicação</th>
+    <th>Title</th>
+    <th>Author</th>
+  </tr>
+<% @results.each do |page| %>
+  <tr>
+    <td><%=h page.page %></td>
+    <td><%=h page.book.published_at %></td>
+    <td><%=h page.book.title %></td>
+    <td><%=h page.book.authors.each{|author| author.name } %></td>
+    <td><%= link_to 'Show', page %></td>
+  </tr>
+<% end %>
+</table>
+<%= will_paginate @results %>
+<% end %>
+
+<h2>Books</h2>
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Author</th>
+  </tr>
+
+<% @books.each do |book| %>
+  <tr>
+    <td><%=h book.title %></td>
+    <td><%=h book.authors.each{|author| author.name } %></td>
+    <td><%= link_to 'Show', book %></td>
+    <td><%= link_to 'Edit', edit_book_path(book) %></td>
+    <td><%= link_to 'Destroy', book, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New book', new_book_path %>
+

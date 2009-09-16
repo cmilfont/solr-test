@@ -1,0 +1,36 @@
+<h1>New book</h1>
+
+<% form_for @book, :html => { :multipart => true } do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </p>
+  <p>
+    <%= f.label :author %><br />
+    <%= collection_select(:author, :author_id, Author.all, :id, :name) %>
+  </p>
+  <p>
+    <%= f.label :price %><br />
+    <%= f.text_field :price %>
+  </p>
+  <p>
+    <%= f.label :published_at %><br />
+    <%= f.datetime_select :published_at %>
+  </p>
+  <p>
+    <%= f.label :file %><br />
+    <%= f.file_field :file %>
+  </p>
+
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+
+
+
+<% end %>
+
+<%= link_to 'Back', books_path %>
+

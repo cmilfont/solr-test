@@ -1,0 +1,21 @@
+development:
+  adapter: mysql
+  host: localhost
+  database: solr_development
+  username: root
+  password: root
+
+test: &TEST
+  adapter: mysql
+  host: localhost
+  database: solr_test
+  username: root
+  password: root
+
+production:
+  adapter: mysql
+  host: localhost
+  database: solr_production
+  username: root
+  password: root
+
