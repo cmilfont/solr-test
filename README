@@ -1,4 +1,15 @@
 == Welcome to Solr-test
-
 http://www.milfont.org
+
+Instalação do Solr no tomcat http://wiki.apache.org/solr/SolrTomcat
+Blog do sunspot http://outoftime.github.com/
+
+Para testar a aplicação:
+sudo rake gems:install
+sunspot-solr start
+rake db:create:all
+rake db:migrate
+script/server
+
+entrar em http://localhost:3000/books
 
