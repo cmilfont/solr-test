@@ -1,4 +1,3 @@
-require 'pdf/reader'
 class Book < ActiveRecord::Base
 
   has_many :pages, :dependent => :destroy
@@ -8,28 +7,13 @@ class Book < ActiveRecord::Base
   #validates_attachment_content_type :file, :content_type => ['application/pdf']
 
   searchable do
-    time :published_at
+    time :published_at, :trie => true
     string :title
-    float :price
+    float :price #, :trie => true
     text :author_names do
       #authors.each { |author| author.name }
       authors.map { |author| author.name }
     end
-  end
-
-  def after_save
-    super
-    #if self.new_record?
-      url = RAILS_ROOT + "/public" + self.file.url
-    	receiver = PageTextReceiver.new
-      pdf = PDF::Reader.file(url, receiver)
-      page_number = 0
-      receiver.content.each{|page|
-        page_number += 1
-        self.pages << Page.new(:content => page, :page => page_number)
-      }
-      Page.reindex
-    #end
   end
 
 end

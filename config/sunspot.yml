@@ -9,7 +9,8 @@ production:
 development:
   <<: *common
   solr:
-    port: 8983
+    port: 8080
+    path: /solr-example
 
 test:
   <<: *common
